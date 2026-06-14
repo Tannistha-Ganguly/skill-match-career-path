@@ -1,142 +1,149 @@
+<div align="center">
 
-# Career Portal Platform
+# 🌟 Skill Match & Career Path 🌟
 
-A modern career platform connecting students with employers, featuring AI-powered career guidance and job matching.
+[![React](https://img.shields.io/badge/React-18-blue.svg?style=for-the-badge&logo=react)](https://reactjs.org/)
+[![Vite](https://img.shields.io/badge/Vite-5-646CFF.svg?style=for-the-badge&logo=vite)](https://vitejs.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue.svg?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3-38B2AC.svg?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![Supabase](https://img.shields.io/badge/Supabase-DB-3ECF8E.svg?style=for-the-badge&logo=supabase)](https://supabase.com/)
 
-## 🚀 Tech Stack
+**A next-generation, AI-powered career guidance and job matching ecosystem.**
 
-### Frontend
-- **React 18** with TypeScript for type-safe development
-- **Vite** for fast development and optimized builds
-- **Tailwind CSS** for utility-first styling
-- **shadcn/ui** for beautiful, accessible UI components
-- **Tanstack Query** for efficient data fetching and caching
-- **React Router** for client-side routing
-- **Recharts** for data visualization
-- **Lucide Icons** for modern iconography
+[Key Features](#-key-features) • [Architecture](#-architecture) • [Getting Started](#-getting-started) • [Contributing](#-contributing)
 
-### Backend (Supabase)
-- **PostgreSQL** database
-- **Row Level Security** for data protection
-- **Edge Functions** for serverless computing
-- **Real-time subscriptions** for live updates
-- **Storage** for file uploads (resumes)
-- **Authentication** with email/password
+</div>
 
-### AI Integration
-- **OpenRouter API** with Meta's Llama 4 Scout model for career guidance
-- Custom AI assistant (Sarthi) for personalized career advice
+---
+
+## 📖 Overview
+
+**Skill Match & Career Path** is not just a job board. It's a holistic platform bridging the gap between ambitious students and forward-thinking employers. Powered by **Meta's Llama 4 Scout**, our intelligent assistant **Sarthi** provides real-time, context-aware career guidance, resume reviews, and personalized job recommendations.
+
+---
+
+## ✨ Key Features
+
+### 🎓 For Students
+- **🧠 Sarthi - Your AI Mentor**: Get instant, personalized career advice powered by OpenRouter API.
+- **🎯 Skill Assessment**: Identify skill gaps and discover tailored learning paths.
+- **💼 Smart Job Matching**: Let our algorithms find the roles that truly fit your profile.
+- **📄 Resume Mastery**: Manage, polish, and deploy your resume securely.
+
+### 🏢 For Employers
+- **🚀 Rapid Job Posting**: Publish openings to a curated talent pool instantly.
+- **📊 Applicant Analytics**: View rich insights and manage candidate shortlisting effortlessly.
+- **🏢 Brand Management**: Showcase your company culture with beautiful, customizable profiles.
+
+### 🔄 Platform Wide
+- **⚡ Real-time Updates**: Instant notifications for applications, messages, and matches.
+- **🎨 Stunning UI/UX**: Built with shadcn/ui and Tailwind for a pixel-perfect, responsive experience (Dark/Light mode included).
+- **🔒 Secure Data**: Row Level Security (RLS) ensures your data stays yours.
+
+---
 
 ## 🏗️ Architecture
 
-### Data Flow
-1. **Authentication Flow**
-   - Users sign up/login through Supabase Auth
-   - User profiles are automatically created in the profiles table
-   - Role-based access control (student/employer)
+The platform relies on a modern, decoupled architecture designed for scale and developer experience.
 
-2. **Job Posting Flow**
-   - Employers create job listings
-   - Data stored in jobs table
-   - Real-time updates for new postings
+```mermaid
+graph TD
+    subgraph Frontend [Client - React & Vite]
+        UI[shadcn/ui Components]
+        State[Tanstack Query]
+        Router[React Router]
+    end
 
-3. **Application Flow**
-   - Students browse and apply to jobs
-   - Applications stored with resume attachments
-   - Automatic notifications for status updates
+    subgraph Backend [Supabase Services]
+        Auth[Supabase Auth]
+        DB[(PostgreSQL)]
+        Edge[Edge Functions]
+        Storage[Blob Storage]
+    end
 
-4. **AI Assistant Flow**
-   - User messages processed through Edge Functions
-   - OpenRouter API integration for AI responses
-   - Context-aware career guidance
+    subgraph AI [External APIs]
+        Llama[Meta Llama 4 Scout]
+        OR[OpenRouter API]
+    end
 
-### Database Schema
-- **profiles**: User information and roles
-- **jobs**: Job listings and requirements
-- **applications**: Job applications and status
-- **notifications**: System notifications
+    UI --> State
+    State --> Router
+    Router --> Auth
+    Router --> DB
+    Router --> Edge
+    Edge --> OR
+    OR --> Llama
+```
 
-## 🔐 Security
+### Data Flow Breakdown
+1. **Authentication:** Managed natively via Supabase Auth. Roles (Student/Employer) define the capabilities.
+2. **AI Guidance:** User inputs are securely routed through Supabase Edge Functions to OpenRouter to query the Llama model, ensuring API keys remain completely hidden from the client.
+3. **Real-time Sync:** Supabase's Real-time subscriptions power the live notification feeds when jobs are posted or applications updated.
 
-- Row Level Security (RLS) policies protect data access
-- Secure file storage for resumes
-- Environment variables for sensitive credentials
-- API keys managed through Edge Functions
-
-## 🎯 Key Features
-
-1. **For Students**
-   - AI-powered career guidance (Sarthi)
-   - Skill assessment and recommendations
-   - Job applications tracking
-   - Resume management
-   - Personalized job recommendations
-
-2. **For Employers**
-   - Job posting management
-   - Applicant tracking
-   - Candidate shortlisting
-   - Company profile management
-   - Application analytics
-
-3. **Shared Features**
-   - Real-time notifications
-   - Profile management
-   - Responsive design
-   - Dark/light mode support
+---
 
 ## 🚀 Getting Started
 
-1. Clone the repository
-```sh
-git clone <YOUR_GIT_URL>
-```
+### Prerequisites
+- Node.js (v18+)
+- npm or bun
+- Supabase Account
+- OpenRouter API Key
 
-2. Install dependencies
-```sh
-npm install
-```
+### Installation
 
-3. Set up environment variables
-```sh
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_ANON_KEY=your_supabase_key
-OPENROUTER_API_KEY=your_openrouter_key
-```
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Tannistha-Ganguly/skill-match-career-path.git
+   cd skill-match-career-path
+   ```
 
-4. Start the development server
-```sh
-npm run dev
-```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-## 📱 Responsive Design
+3. **Environment Setup**
+   Create a `.env` file in the root directory:
+   ```env
+   VITE_SUPABASE_URL=your_supabase_url
+   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+   OPENROUTER_API_KEY=your_openrouter_api_key
+   ```
 
-The application is fully responsive and optimized for:
-- Desktop (1024px and above)
-- Tablet (768px to 1023px)
-- Mobile (below 768px)
+4. **Fire it up**
+   ```bash
+   npm run dev
+   ```
+   *Your app will be live at `http://localhost:5173`.*
+
+---
 
 ## 🧪 Testing
 
-- Jest for unit testing
-- React Testing Library for component testing
-- Type checking with TypeScript
+We believe in reliable software.
+- **Unit Testing:** Powered by `Jest`.
+- **Component Testing:** `React Testing Library`.
+- **Type Checking:** Strict `TypeScript` configs to catch errors before they happen.
 
-## 📦 Deployment
+```bash
+npm run test
+```
 
-The project can be deployed through Lovable's built-in deployment system:
-1. Click on Share -> Publish in the Lovable interface
-2. Optional: Connect a custom domain through Project Settings
+---
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Open a Pull Request
+We welcome contributions! Please see our standard workflow:
+1. Fork the repo 🍴
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`) 💡
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`) 📝
+4. Push to the branch (`git push origin feature/AmazingFeature`) 🚀
+5. Open a Pull Request 👀
 
-## 📝 License
+---
 
-This project is MIT licensed.
-
+<div align="center">
+  <p>Built with ❤️ by Tannistha Ganguly & Team</p>
+  <p>MIT License © 2026</p>
+</div>
